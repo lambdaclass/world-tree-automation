@@ -1,5 +1,5 @@
 init:
-	terraform -chdir=terraform/ init -auto-approve
+	terraform -chdir=terraform/ init
 
 servers:
 	terraform -chdir=terraform/ apply -auto-approve
