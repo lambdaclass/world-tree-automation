@@ -1,0 +1,72 @@
+- name: Deploy World Tree Service
+  hosts: all
+
+  pre_tasks:
+    - name: Install pkg-config
+      command: sudo apt install -y pkg-config
+      delegate_to: "{{ inventory_hostname }}"
+      delegate_facts: True
+      vars:
+        ansible_ssh_user: admin
+
+    - name: Check if cargo is installed.
+      command: command -v /home/{{ ansible_user }}/.cargo/bin/cargo
+      register: cargo_exists
+      ignore_errors: yes
+
+    - name: Download Installer.
+      when: cargo_exists is failed
+      get_url:
+        url: https://sh.rustup.rs
+        dest: /tmp/sh.rustup.rs
+        mode: '0755'
+        force: 'yes'
+      tags:
+        - rust
+
+    - name: Install Rust.
+      when: cargo_exists is failed
+      shell: /tmp/sh.rustup.rs -y
+      tags:
+        - rust
+
+    - name: Activate Linger.
+      command: sudo loginctl enable-linger dev
+      register: linger
+      remote_user: 'admin'
+      delegate_to: "{{ inventory_hostname }}"
+      delegate_facts: True
+      vars:
+        ansible_ssh_user: admin
+
+    - debug: var=linger
+
+  tasks:
+    - name: Clone World Tree repository
+      git:
+        repo: https://github.com/samoht9277/world-tree.git
+        dest: /home/{{ ansible_user }}/world-tree
+        version: patch-1
+
+    - name: Change directory to world-tree
+      shell: cd /home/{{ ansible_user }}/world-tree
+
+    - name: Compile World Tree
+      command: /home/{{ ansible_user }}/.cargo/bin/cargo install --path .
+      args:
+        chdir: /home/{{ ansible_user }}/world-tree
+
+    - name: Create systemd directory
+      shell: mkdir -p /home/{{ ansible_user }}/.config/systemd/user/
+
+    - name: Create systemd service file for user
+      template:
+        src: world-tree.service.j2
+        dest: /home/{{ ansible_user }}/.config/systemd/user/world-tree.service
+
+    - name: Reload systemd daemons
+      command: systemctl --user daemon-reload
+
+    - name: Start World Tree service as user service
+      command: systemctl --user start world-tree.service
+      # become: false

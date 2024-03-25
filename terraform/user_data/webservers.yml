@@ -1,0 +1,49 @@
+#cloud-config
+
+hostname: ${hostname}
+
+users:
+  - name: admin
+    groups: sudo
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPGTH2Nm14VMFsPT6qyLp7sSvUmO58wJ5mss+WYdc1hY tomascasagrande
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH+Pn4eeMouj+BUj3ynUYzjvpxeepJC8GU3RFTE+eOch hetzner_lambda
+  - name: dev
+    groups: []
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPGTH2Nm14VMFsPT6qyLp7sSvUmO58wJ5mss+WYdc1hY tomascasagrande
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH+Pn4eeMouj+BUj3ynUYzjvpxeepJC8GU3RFTE+eOch hetzner_lambda
+
+package_update: true
+package_upgrade: true
+packages:
+  - ca-certificates
+  - htop
+  - curl
+  - gnupg
+  - vim
+  - git
+  - zip
+  - unzip
+  - openssl
+  - libssl-dev
+  - build-essential
+  - rsyslog
+  - policykit-1
+  - pkg-config
+
+runcmd:
+  - ln -sf /usr/share/zoneinfo/America/Argentina/Buenos_Aires /etc/localtime
+  - sed -i 's/PermitRootLogin .*/PermitRootLogin no/g' /etc/ssh/sshd_config
+  - sed -i 's/#PasswordAuthentication .*/PasswordAuthentication no/g' /etc/ssh/sshd_config
+  - sed -i 's/#AllowAgentForwarding .*/AllowAgentForwarding no/g' /etc/ssh/sshd_config
+  - sed -i 's/#AllowTcpForwarding .*/AllowTcpForwarding no/g' /etc/ssh/sshd_config
+  - sed -i 's/#PubkeyAuthentication .*/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
+  - apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
+  - sudo apt update
+  - curl -fsSL https://tailscale.com/install.sh | sh
+  - echo "Execute 'sudo tailscale up --ssh --advertise-tags=tag:server && sudo tailscale set --auto-update' to connect this server into our VPN. This is required to manually add the token." > /home/admin/README
+  - systemctl restart sshd
