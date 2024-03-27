@@ -1,8 +1,12 @@
+ifndef SERVERS
+	override SERVERS = 3
+endif
+
 init:
 	terraform -chdir=terraform/ init
 
-servers:
-	terraform -chdir=terraform/ apply -auto-approve
+start:
+	terraform -chdir=terraform/ apply -auto-approve -var="servers=${SERVERS}"
 	./update-ansible-ip.sh
 
 deploy:
@@ -10,6 +14,6 @@ deploy:
 	cd ansible && ansible-playbook -i inventory.yaml playbooks/world-tree.yml
 
 stop:
-	terraform -chdir=terraform/ destroy -auto-approve
+	terraform -chdir=terraform/ destroy -auto-approve -var="servers=${SERVERS}"
 
 all: servers deploy

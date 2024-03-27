@@ -1,20 +1,9 @@
-variable "instance_count" {
-  description = "Number of EC2 instances to create"
-  default     = 3
-}
-
-variable "instance_type" {
-  description = "AWS EC2 instance yype"
-  default = "t3.2xlarge"
-}
-
 resource "aws_instance" "worldcoin-servers" {
-  count         = var.instance_count
+  count         = var.servers
   ami           = data.aws_ami.debian_latest.id
   instance_type = var.instance_type
-  key_name      = aws_key_pair.deploy_key.key_name
   user_data     = templatefile("${path.module}/user_data/webservers.yml", { hostname = "worldcoin-${count.index + 1}" })
-  security_groups = [aws_security_group.allow_ssh.name]
+  security_groups = [aws_security_group.firewall.name]
 
   tags = {
     Name = "worldcoin-${count.index + 1}"
@@ -32,18 +21,20 @@ data "aws_ami" "debian_latest" {
   }
 }
 
-resource "aws_key_pair" "deploy_key" {
-  key_name   = "tomascasagrande"
-  public_key = file("~/.ssh/id_ed25519.pub")
-}
-
-resource "aws_security_group" "allow_ssh" {
+resource "aws_security_group" "firewall" {
   name        = "allow_ssh"
-  description = "Allow SSH inbound traffic"
+  description = "Allow SSH and HTTP inbound traffic"
   
   ingress {
     from_port   = 22
     to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
