@@ -2,7 +2,7 @@ resource "aws_instance" "worldcoin-servers" {
   count         = var.servers
   ami           = data.aws_ami.debian_latest.id
   instance_type = var.instance_type
-  user_data     = templatefile("${path.module}/user_data/webservers.yml", { hostname = "worldcoin-${count.index + 1}" })
+  user_data     = templatefile("${path.module}/user_data/worldcoin.yml", { hostname = "worldcoin-${count.index + 1}" })
   security_groups = [aws_security_group.firewall.name]
 
   tags = {

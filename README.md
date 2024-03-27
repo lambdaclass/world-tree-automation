@@ -23,9 +23,17 @@ This guide aims to provide an automatic deployment for servers on AWS, that run 
     - You can also change the AWS Region where the EC2 servers are going to be created.
 
 ### Steps before running
-- Change the AWS bucket where `terraform` saves it's state.
-    - File located at `terraform/providers.tf`
+- Change the AWS config.
     - Optionally, you can change the AWS region, and the amount of servers created.
+        - File located at `terraform/providers.tf
+
+- Change the SSH Public Keys
+    - Change the SSH public keys, that allow you to log into the server
+      File located at `terraform/user_data/worldcoin.yml`
+
+- Change the Ethereum Mainnet HTTPS URL Endpoint
+    - Change the Endpoint passed as an argument to binray inside the systemd service
+        - File located at `ansible/playbooks/templates/world-tree.service.j2`
 
 ### Steps to start deployment
 
