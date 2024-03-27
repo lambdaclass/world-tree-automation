@@ -14,14 +14,6 @@ This guide aims to provide an automatic deployment for servers on AWS, that run 
 
 ## Getting Started
 
-### Things to change before running
-- SSH KEY
-    - Change the `ssh_autorized_keys` resource on the `webservers.yml` file. Add your own key in order to be able to log into the server.
-- AWS Instance Type
-    - If desired, change the `instance_type` default value with your desired instance type. Edit the `variables.tf` file.
--  AWS region
-    - You can also change the AWS Region where the EC2 servers are going to be created.
-
 ### Steps before running
 - Change the AWS config.
     - Optionally, you can change the AWS region, and the amount of servers created.
@@ -34,6 +26,12 @@ This guide aims to provide an automatic deployment for servers on AWS, that run 
 - Change the Ethereum Mainnet HTTPS URL Endpoint
     - Change the Endpoint passed as an argument to binray inside the systemd service
         - File located at `ansible/playbooks/templates/world-tree.service.j2`
+
+- AWS Instance Type
+    - If desired, change the `instance_type` default value with your desired instance type. Edit the `variables.tf` file.
+
+-  AWS region
+    - You can also change the AWS Region where the EC2 servers are going to be created.
 
 ### Steps to start deployment
 
@@ -53,4 +51,5 @@ This guide aims to provide an automatic deployment for servers on AWS, that run 
 The servers contain two different users.
 
 `dev` is the user where the world-tree app is going to be deployed. The app will be executed by a `systemd` service.
+
 `admin` is a user that, unlike `dev`, is added to the `sudo` group. This user is meant to run commands that require escalated privileges.
