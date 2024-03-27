@@ -1,14 +1,6 @@
 webservers:
   hosts:
     worldcoin-1:
-      ansible_host: 3.234.212.121
-      ansible_user: dev
-      ansible_python_interpreter: /usr/bin/python3
-    worldcoin-2:
-      ansible_host: 3.238.130.120
-      ansible_user: dev
-      ansible_python_interpreter: /usr/bin/python3
-    worldcoin-3:
-      ansible_host: 44.197.230.26
+      ansible_host: 44.192.75.8
       ansible_user: dev
       ansible_python_interpreter: /usr/bin/python3

@@ -44,6 +44,4 @@ runcmd:
   - sed -i 's/#PubkeyAuthentication .*/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
   - apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
   - sudo apt update
-  - curl -fsSL https://tailscale.com/install.sh | sh
-  - echo "Execute 'sudo tailscale up --ssh --advertise-tags=tag:server && sudo tailscale set --auto-update' to connect this server into our VPN. This is required to manually add the token." > /home/admin/README
   - systemctl restart sshd

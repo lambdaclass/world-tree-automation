@@ -40,3 +40,9 @@ This guide aims to provide an automatic deployment for servers on AWS, that run 
 
 - `make stop SERVERS=N`
     - Destroy all the running servers.
+
+### Additional Notes
+The servers contain two different users.
+
+`dev` is the user where the world-tree app is going to be deployed. The app will be executed by a `systemd` service.
+`admin` is a user that, unlike `dev`, is added to the `sudo` group. This user is meant to run commands that require escalated privileges.
