@@ -3,15 +3,14 @@
 set -ex
 
 output=$(terraform -chdir=terraform/ output -json)
+hosts=$(echo $output | jq -r '.web_servers.value | to_entries[] | "\(.key):\(.value)"')
 
-if [ "${output}" == "{}" ]; then
+if [ "${output}" == "{}" ] || [ -z "${hosts}" ]; then
 	echo "terraform reports that there are no current servers running."
 	exit 1
 fi
 
 cd ansible/
-
-cp inventory.yaml inventory.yaml.bak
 
 cat <<EOF >inventory.yaml
 webservers:

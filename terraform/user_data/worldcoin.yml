@@ -42,6 +42,7 @@ runcmd:
   - sed -i 's/#AllowAgentForwarding .*/AllowAgentForwarding no/g' /etc/ssh/sshd_config
   - sed -i 's/#AllowTcpForwarding .*/AllowTcpForwarding no/g' /etc/ssh/sshd_config
   - sed -i 's/#PubkeyAuthentication .*/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
+  - echo "127.0.0.1       ${hostname}" >> /etc/hosts
   - apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
   - sudo apt update
   - systemctl restart sshd
