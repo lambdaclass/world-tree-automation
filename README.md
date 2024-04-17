@@ -11,8 +11,6 @@ This guide aims to provide an automatic deployment for servers on AWS, that run 
 - `jq`
 - `make`
 
----
-
 ## Getting Started
 
 ### Steps before running
