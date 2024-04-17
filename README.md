@@ -35,23 +35,26 @@ This guide aims to provide an automatic deployment for servers on AWS, that run 
         - Edit the [variables.tf](https://github.com/lambdaclass/world-tree-automation/blob/main/terraform/variables.tf) file.
 
 - AWS S3 Bucket
-    - Yo can change the AWS S3 region location, as well as the directory inside the bucket.
+    - You can change the AWS S3 region location, as well as the directory inside the bucket.
         - Edit the backend section inside the [providers.tf](https://github.com/lambdaclass/world-tree-automation/blob/main/terraform/providers.tf) file.
 
 ### Steps to start deployment
 
 - `make start SERVERS=N`
-    - Initializes Terraform backend. Then, creates `N` (Integer) amount servers on AWS. Each server will appear on your dashboard with the names `worldcoin-N`.
+    - Initializes Terraform backend. Then, creates `N` (Integer) amount servers on AWS. Each server will appear on your dashboard with the names `worldcoin-N`. 
+      - If `N` is not defines, it will default to `3`.
 
-- `make stop SERVERS=N`
+- `make stop`
     - Destroy all the running servers.
 
 ### Additional Notes
 #### The servers contain two different users.
 
-- `dev` is the user where the world-tree app is going to be deployed. The app will be executed by a `systemd` service.
+- `dev` is the user where the world-tree app is going to be deployed. 
+  - The app will be executed by a `systemd` service.
 
-- `admin` is a user that, unlike `dev`, is added to the `sudo` group. This user is meant to run commands that require escalated privileges.
+- `admin` is the user that, unlike `dev`, is added to the `sudo` group. 
+  - This user is meant to run commands that require escalated privileges.
 
 #### World Tree service
 - The `world-tree.service` is located at `.config/systemd/user/world-tree.service`
