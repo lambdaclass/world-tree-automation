@@ -42,7 +42,7 @@ This guide aims to provide an automatic deployment for servers on AWS, that run 
 
 - `make start SERVERS=N`
     - Initializes Terraform backend. Then, creates `N` (Integer) amount servers on AWS. Each server will appear on your dashboard with the names `worldcoin-N`. 
-      - If `N` is not defines, it will default to `3`.
+      - If `N` is not defined, it will default to `3`.
 
 - `make stop`
     - Destroy all the running servers.
