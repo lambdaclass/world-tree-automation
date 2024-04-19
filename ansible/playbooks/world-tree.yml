@@ -9,12 +9,12 @@
       vars:
         ansible_ssh_user: admin
 
-    - name: Check if cargo is installed.
+    - name: Check if cargo is installed
       command: command -v /home/{{ ansible_user }}/.cargo/bin/cargo
       register: cargo_exists
       ignore_errors: yes
 
-    - name: Download Installer.
+    - name: Download Installer
       when: cargo_exists is failed
       get_url:
         url: https://sh.rustup.rs
@@ -24,7 +24,7 @@
       tags:
         - rust
 
-    - name: Install Rust.
+    - name: Install Rust
       when: cargo_exists is failed
       shell: /tmp/sh.rustup.rs -y
       tags:
@@ -39,7 +39,7 @@
       vars:
         ansible_ssh_user: admin
 
-    - name: Activate Linger.
+    - name: Activate Linger
       command: sudo loginctl enable-linger dev
       register: linger
       remote_user: 'admin'
