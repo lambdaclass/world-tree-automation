@@ -26,8 +26,8 @@ data "aws_ami" "debian_latest" {
 }
 
 resource "aws_security_group" "firewall" {
-  name        = "allow_ssh"
-  description = "Allow SSH and HTTP inbound traffic"
+  name        = "worldcoin-firewall"
+  description = "Allow SSH and HTTP inbound traffic."
   
   ingress {
     from_port   = 22
