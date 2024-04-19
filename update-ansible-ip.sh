@@ -10,6 +10,9 @@ if [ "${output}" == "{}" ] || [ -z "${hosts}" ]; then
 	exit 1
 fi
 
+# So the ssh service gets enough time to start and provide server's ssh public keys.
+sleep 3
+
 cd ansible/
 
 cat <<EOF >inventory.yaml
