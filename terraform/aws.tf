@@ -5,6 +5,10 @@ resource "aws_instance" "worldcoin-servers" {
   user_data     = templatefile("${path.module}/user_data/worldcoin.yml", { hostname = "worldcoin-${count.index + 1}" })
   security_groups = [aws_security_group.firewall.name]
 
+  root_block_device {
+    volume_size = 80
+  }
+
   tags = {
     Name = "worldcoin-${count.index + 1}"
   }

@@ -30,6 +30,15 @@
       tags:
         - rust
 
+    - name: Change file descriptor limit for dev user
+      command: |
+        echo "dev hard nofile 100000" >> /etc/security/limits.conf
+        echo "dev soft nofile 100000" >> /etc/security/limits.conf
+      delegate_to: "{{ inventory_hostname }}"
+      delegate_facts: True
+      vars:
+        ansible_ssh_user: admin
+
     - name: Activate Linger.
       command: sudo loginctl enable-linger dev
       register: linger
@@ -44,17 +53,18 @@
   tasks:
     - name: Clone World Tree repository
       git:
-        repo: https://github.com/samoht9277/world-tree.git
+        repo: https://github.com/worldcoin/world-tree.git
         dest: /home/{{ ansible_user }}/world-tree
-        version: patch-1
-
-    - name: Change directory to world-tree
-      shell: cd /home/{{ ansible_user }}/world-tree
 
     - name: Compile World Tree
       command: /home/{{ ansible_user }}/.cargo/bin/cargo install --path .
       args:
         chdir: /home/{{ ansible_user }}/world-tree
+
+    - name: Add config file to world-tree repo
+      template:
+        src: world_tree.toml.j2
+        dest: /home/{{ ansible_user }}/world-tree/bin/world_tree.toml
 
     - name: Create systemd directory
       shell: mkdir -p /home/{{ ansible_user }}/.config/systemd/user/
@@ -69,4 +79,3 @@
 
     - name: Start World Tree service as user service
       command: systemctl --user start world-tree.service
-      # become: false

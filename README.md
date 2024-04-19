@@ -19,18 +19,18 @@ This guide aims to provide an automatic deployment for servers on AWS, that run 
         - File located at [terraform/providers.tf](https://github.com/lambdaclass/world-tree-automation/blob/main/terraform/providers.tf)
 
 - Change the SSH Public Keys
-    - Change the SSH public keys, that allow you to log into the server
+    - Change the SSH public keys, that allow you to log into the server.
         - File located at [terraform/user_data/worldcoin.yml](https://github.com/lambdaclass/world-tree-automation/blob/main/terraform/user_data/worldcoin.yml)
 
-- Change the Ethereum Mainnet HTTPS URL Endpoint
-    - Change the Endpoint passed as an argument to binray inside the systemd service
-        - File located at [ansible/playbooks/templates/world-tree.service.j2](https://github.com/lambdaclass/world-tree-automation/blob/main/ansible/playbooks/templates/world-tree.service.j2)
+- Change the Mainnet HTTPS URL Endpoints
+    - Change the Endpoint passed as a config file to `world-tree` command.
+        - File located at [ansible/playbooks/templates/world_tree.toml.j2](https://github.com/lambdaclass/world-tree-automation/blob/main/ansible/playbooks/templates/world_tree.toml.j2)
 
 - AWS Instance Type
     - If desired, change the `instance_type` default value with your desired instance type. 
         - Edit the [terraform/variables.tf](https://github.com/lambdaclass/world-tree-automation/blob/main/terraform/variables.tf) file.
 
-- AWS region
+- AWS Region
     - You can also change the AWS Region where the EC2 servers are going to be created.
         - Edit the [variables.tf](https://github.com/lambdaclass/world-tree-automation/blob/main/terraform/variables.tf) file.
 
