@@ -59,8 +59,7 @@ The servers contain two different users.
 - `admin` is the user that, unlike dev, is added to the sudo group.
     - This user is meant to run commands that require escalated privileges.
 
-#### World Tree Systemd Service
-
-    The world-tree.service is located at .config/systemd/user/world-tree.service
-        Any changes on how the binary is executed must be changed here.
-    Port 8080 is firewall-enabled and listening for any request.
+#### World Tree SystemD Service
+- The world-tree.service is located at .config/systemd/user/world-tree.service
+    - Any changes on how the binary is executed must be changed here.
+- Port 8080 is firewall-enabled and listening for any request.
