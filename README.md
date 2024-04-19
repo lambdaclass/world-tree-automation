@@ -37,7 +37,7 @@ Requirements
 
 - AWS S3 Bucket 🗄️
     - You can change the AWS S3 region location, as well as the directory inside the bucket.
-        - Edit the backend section inside the [providers.tf](https://github.com/lambdaclass/world-tree-automation/blob/main/terraform/providers.tf) file.
+        - Edit the backend section inside the [terraform/providers.tf](https://github.com/lambdaclass/world-tree-automation/blob/main/terraform/providers.tf) file.
 
 
 ## Steps to start deployment
