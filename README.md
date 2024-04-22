@@ -63,3 +63,8 @@ The servers contain two different users.
 - The world-tree.service is located at `.config/systemd/user/world-tree.service`
     - Any changes on how the binary is executed must be changed here.
 - Port 8080 is firewall-enabled and listening for any request.
+
+#### World Tree
+This repository is meant to automate the [world-tree](https://github.com/worldcoin/world-tree) project.
+
+There, you can see more details about the code itself, how to test the app, loadtests, and more.
