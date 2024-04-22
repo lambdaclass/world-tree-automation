@@ -10,7 +10,7 @@
         ansible_ssh_user: admin
 
     - name: Check if cargo is installed
-      command: which cargo
+      shell: command -v /home/{{ ansible_user }}/.cargo/bin/cargo
       register: cargo_exists
       ignore_errors: yes
 
@@ -30,25 +30,13 @@
       tags:
         - rust
 
-    - name: Change file descriptor limit for dev user
-      command: |
-        echo "dev hard nofile 100000" | sudo tee -a /etc/security/limits.conf
-        echo "dev soft nofile 100000" | sudo tee -a /etc/security/limits.conf
-      delegate_to: "{{ inventory_hostname }}"
-      delegate_facts: True
-      vars:
-        ansible_ssh_user: admin
-
     - name: Activate Linger
       command: sudo loginctl enable-linger dev
-      register: linger
       remote_user: 'admin'
       delegate_to: "{{ inventory_hostname }}"
       delegate_facts: True
       vars:
         ansible_ssh_user: admin
-
-    - debug: var=linger
 
   tasks:
     - name: Clone World Tree repository
