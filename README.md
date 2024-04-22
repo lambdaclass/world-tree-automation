@@ -52,6 +52,7 @@ make all SERVERS=N
 
 - `make all`
     - Runs three targets at once: `init`, `server`, `deploy`.
+        - The variable `SERVERS` is passed to the `servers` target.
     - The targets are separated for easier debugging.
 
 - `make init`
