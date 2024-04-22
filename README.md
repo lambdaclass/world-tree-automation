@@ -50,6 +50,10 @@ make all SERVERS=N
 
 ### 🎯 Makefile targets
 
+- `make all`
+    - Runs three targets at once: `init`, `server`, `deploy`.
+    - The targets are separated for easier debugging.
+
 - `make init`
     - Initializes Terraform's backend
 
