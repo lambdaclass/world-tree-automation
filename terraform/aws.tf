@@ -10,7 +10,7 @@ resource "aws_instance" "worldcoin-servers" {
   }
 
   tags = {
-    Name = "worldcoin-${count.index + 1}"
+    Name = "worldcoin-world-tree-${count.index + 1}"
   }
 }
 
