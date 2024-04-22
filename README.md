@@ -60,6 +60,6 @@ The servers contain two different users.
     - This user is meant to run commands that require escalated privileges.
 
 #### World Tree SystemD Service
-- The world-tree.service is located at .config/systemd/user/world-tree.service
+- The world-tree.service is located at `.config/systemd/user/world-tree.service`
     - Any changes on how the binary is executed must be changed here.
 - Port 8080 is firewall-enabled and listening for any request.
