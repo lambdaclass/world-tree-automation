@@ -53,7 +53,7 @@ make all SERVERS=N
 - `make init`
     - Initializes Terraform's backend
 
-- `make server SERVERS=N` ` (If `N` is not defined, it will default to 3)
+- `make server SERVERS=N` (If `N` is not defined, it will default to 3)
     - Deploys `N` servers to AWS.
 
 - `make deploy`
