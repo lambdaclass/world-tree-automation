@@ -10,12 +10,12 @@
         ansible_ssh_user: admin
 
     - name: Check if cargo is installed
-      command: command -v /home/{{ ansible_user }}/.cargo/bin/cargo
+      command: which cargo
       register: cargo_exists
       ignore_errors: yes
 
     - name: Download Installer
-      when: cargo_exists is failed
+      when: cargo_exists.rc != 0
       get_url:
         url: https://sh.rustup.rs
         dest: /tmp/sh.rustup.rs
@@ -25,15 +25,15 @@
         - rust
 
     - name: Install Rust
-      when: cargo_exists is failed
+      when: cargo_exists.rc != 0
       shell: /tmp/sh.rustup.rs -y
       tags:
         - rust
 
     - name: Change file descriptor limit for dev user
       command: |
-        echo "dev hard nofile 100000" >> /etc/security/limits.conf
-        echo "dev soft nofile 100000" >> /etc/security/limits.conf
+        echo "dev hard nofile 100000" | sudo tee -a /etc/security/limits.conf
+        echo "dev soft nofile 100000" | sudo tee -a /etc/security/limits.conf
       delegate_to: "{{ inventory_hostname }}"
       delegate_facts: True
       vars:
@@ -55,6 +55,7 @@
       git:
         repo: https://github.com/worldcoin/world-tree.git
         dest: /home/{{ ansible_user }}/world-tree
+        force: yes
 
     - name: Compile World Tree
       command: /home/{{ ansible_user }}/.cargo/bin/cargo install --path .

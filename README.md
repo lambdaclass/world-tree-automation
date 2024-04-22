@@ -12,7 +12,7 @@ Requirements
 - `make`
 
 ## Getting Started
-#### Steps before running
+#### ⚠️ Steps before running 
 
 - Change the AWS config 🛠️
     - Optionally, you can change the AWS region, and the amount of servers created.
@@ -40,17 +40,29 @@ Requirements
         - Edit the backend section inside the [terraform/providers.tf](https://github.com/lambdaclass/world-tree-automation/blob/main/terraform/providers.tf) file.
 
 
-## Steps to start deployment
+## 🚀 Steps to start deployment
 
-- `make start SERVERS=N` 🚀 (If `N` is not defined, it will default to 3)
-    1. Initializes Terraform backend. 
-    2. `terraform` creates `N` amount servers on AWS. 
-    3. Each server will appear on your dashboard with the names world-tree-N.
+Before running the command below, check that all variables listed above are changed to your liking.
 
-- `make stop` ⛔
+```bash
+make all SERVERS=N
+```
+
+### 🎯 Makefile targets
+
+- `make init`
+    - Initializes Terraform's backend
+
+- `make server SERVERS=N` ` (If `N` is not defined, it will default to 3)
+    - Deploys `N` servers to AWS.
+
+- `make deploy`
+    - Runs a Ansible playbook that deploys the app and it's dependencies.
+
+- `make stop`
     - Destroy all the running servers.
 
-### Additional Notes
+### 📝 Additional Notes
 The servers contain two different users.
 
 - `dev` is the user where the world-tree app is going to be deployed.
@@ -64,7 +76,7 @@ The servers contain two different users.
     - Any changes on how the binary is executed must be changed here.
 - Port 8080 is firewall-enabled and listening for any request.
 
-#### World Tree
+#### 🌎 World Tree
 This repository is meant to automate the [world-tree](https://github.com/worldcoin/world-tree) project.
 
 There, you can see more details about the code itself, how to test the app, loadtests, and more.
