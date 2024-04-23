@@ -1,6 +1,6 @@
 # 🌳 World Tree Automatic Deployment
 
-This guide aims to provide an automatic deployment for servers on AWS, that run the World Tree application.
+This guide aims to provide an automatic deployment for servers on AWS, that runs the World Tree application.
 Requirements
 
 - AWS
@@ -14,15 +14,15 @@ Requirements
 ## Getting Started
 #### ⚠️ Steps before running 
 
-- Change the AWS config 🛠️
+- AWS config 🛠️
     - Optionally, you can change the AWS region, and the amount of servers created.
         - File located at [terraform/providers.tf](https://github.com/lambdaclass/world-tree-automation/blob/main/terraform/providers.tf)
 
-- Change the SSH Public Keys 🔑
+- SSH Public Keys 🔑
     - Change the SSH public keys, that allow you to log into the server.
         - File located at [terraform/user_data/worldcoin.yml](https://github.com/lambdaclass/world-tree-automation/blob/main/terraform/user_data/worldcoin.yml)
 
-- Change the Mainnet HTTPS URL Endpoints 🌐
+- Mainnet HTTPS URL Endpoints 🌐
     - Change the Endpoint passed as a config file to world-tree command.
         - File located at [ansible/playbooks/templates/world_tree.toml.j2](https://github.com/lambdaclass/world-tree-automation/blob/main/ansible/playbooks/templates/world_tree.toml.j2)
 
