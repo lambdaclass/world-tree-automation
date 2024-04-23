@@ -33,7 +33,7 @@ Requirements
 
 - AWS Region 🌍
     - You can also change the AWS Region where the EC2 servers are going to be created.
-        - Edit the [variables.tf](https://github.com/lambdaclass/world-tree-automation/blob/main/terraform/variables.tf) file.
+        - Edit the [terraform/variables.tf](https://github.com/lambdaclass/world-tree-automation/blob/main/terraform/variables.tf) file.
 
 - AWS S3 Bucket 🗄️
     - You can change the AWS S3 region location, as well as the directory inside the bucket.
