@@ -1,6 +1,6 @@
 # 🌳 World Tree Automatic Deployment
 
-This guide aims to provide an automatic deployment for servers on AWS, that runs the World Tree application.
+This guide aims to provide an automatic deployment for servers on AWS, that runs the [world-tree](https://github.com/worldcoin/world-tree) application.
 
 ## Requirements
 
