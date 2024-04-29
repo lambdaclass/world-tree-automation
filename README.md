@@ -1,7 +1,8 @@
 # 🌳 World Tree Automatic Deployment
 
 This guide aims to provide an automatic deployment for servers on AWS, that runs the World Tree application.
-Requirements
+
+## Requirements
 
 - AWS
     - Your `AWS` credentials stored at `~/.aws/credentials` ([Or pass them manually to terraform](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#environment-variables))
