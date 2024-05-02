@@ -67,4 +67,4 @@
       command: systemctl --user daemon-reload
 
     - name: Start World Tree service as user service
-      command: systemctl --user start world-tree.service
+      command: systemctl --user enable --now world-tree.service
